@@ -1,0 +1,36 @@
+// https://leetcode.com/problems/walls-and-gates
+
+class Solution {
+public:
+    const int INF = 2147483647;
+    int dx[4] = {1,-1,0,0};
+    int dy[4] = {0,0,-1,1};
+    queue <pair <int ,int> > q ;
+    void wallsAndGates(vector<vector<int>>& rooms) {
+        int n = rooms.size();
+        int m = rooms[0].size();
+        for(int i =0 ;i<n;i++){
+            for(int j =0 ;j<m;j++){
+                if(rooms[i][j] == 0){
+                    q.push({i,j});
+                }
+            }
+        }
+        
+        while(!q.empty()){
+            auto cur = q.front();
+            q.pop();
+            int r = cur.first ;
+            int c = cur.second ;
+            for(int i =0 ;i<4 ;i++){
+                int nr = r + dx[i];
+                int nc = c+ dy[i];
+                if(nr>=0 && nr < n && nc>=0 && nc <m && rooms[nr][nc]==INF){
+                    rooms[nr][nc] = rooms[r][c]+1;
+                    q.push({nr,nc});
+                }
+            }
+        }
+        return ; 
+    }
+};
